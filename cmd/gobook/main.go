@@ -6,6 +6,8 @@ import (
 	"gobooks/internal/web"
 	"log"
 	"net/http"
+	"os"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -20,6 +22,10 @@ func main() {
 
 	bookService  := service.NewBookService(db)
 	bookHandler := web.NewBookHandler(bookService)
+
+	if len(os.Args) > 1 && (os.Args[1] == "search" || os.Args[1] == "simulate"){
+		
+	}
 
 	router := http.NewServeMux()
 	router.HandleFunc("GET /api/books", bookHandler.GetBooks)
